@@ -9,6 +9,7 @@ import Footer from "../layout/Footer";
 import Teams from "../teams/Teams";
 import Team from "../teams/Team";
 import Players from "../players/Players";
+import Player from "../players/Player";
 import Games from "../games/Games";
 
 class App extends React.Component {
@@ -16,12 +17,14 @@ class App extends React.Component {
     loading: false,
     teams: [],
     team: {},
-    term: '',
-    players: []
+    term: "",
+    players: [],
+    player: {},
+    seasonAvg: {}
   };
 
   async componentDidMount() {
-    this.setState({ loading: true});
+    this.setState({ loading: true });
 
     const response = await axios.get("https://www.balldontlie.io/api/v1/teams");
 
@@ -30,7 +33,7 @@ class App extends React.Component {
 
   getTeamInfo = async e => {
     if (e.target.id !== "") {
-      this.setState({ loading: true});
+      this.setState({ loading: true });
 
       const response = await axios.get(
         `https://www.balldontlie.io/api/v1/teams/${e.target.id}`
@@ -40,25 +43,50 @@ class App extends React.Component {
   };
 
   searchPlayers = async term => {
-    this.setState({ loading: true});
+    this.setState({ loading: true });
 
-    const response = await axios.get(`https://www.balldontlie.io/api/v1/players?search=${term}`);
+    const response = await axios.get(
+      `https://www.balldontlie.io/api/v1/players?search=${term}`
+    );
 
-    this.setState({ players: response.data.data, loading: false});
-    console.log(this.state.players)
-  }
+    this.setState({ players: response.data.data, loading: false });
+  };
 
-  onChangeHandler = e => this.setState({ term: e.target.value});
+  clearResults = () => this.setState({ players: [], loading: false });
+
+  getPlayerInfo = async e => {
+    if (e.target.id !== "") {
+      this.setState({ loading: true });
+
+      const response = await axios.get(
+        `https://www.balldontlie.io/api/v1/players/${e.target.id}`
+      );
+
+      this.setState({ player: response.data, loading: false });
+      console.log(this.state.player);
+    }
+  };
+
+  onChangeHandler = e => this.setState({ term: e.target.value });
 
   onSubmitHandler = e => {
     e.preventDefault();
     this.searchPlayers(this.state.term);
-    this.setState({ term: ''});
+    this.setState({ term: "" });
+  };
+
+  getSeasonAvg = async () => {
+    const response = await axios.get(
+      `https://www.balldontlie.io/api/v1/season_averages?player_ids[]=${this.state.player.id}`
+    );
+
+    this.setState({ seasonAvg: response.data.data[0]});
+    console.log(this.state.seasonAvg)
   };
 
   render() {
-    if(this.state.loading) {
-      return <Spinner />
+    if (this.state.loading) {
+      return <Spinner />;
     }
 
     return (
@@ -80,7 +108,9 @@ class App extends React.Component {
             <Route
               exact
               path="/team/:id"
-              render={props => <Team team={this.state.team} loading={this.state.loading} />}
+              render={props => (
+                <Team team={this.state.team} loading={this.state.loading} />
+              )}
             />
             <Route
               path="/players"
@@ -88,13 +118,31 @@ class App extends React.Component {
                 <Players
                   term={this.state.term}
                   players={this.state.players}
+                  getPlayerInfo={this.getPlayerInfo}
                   onChangeHandler={this.onChangeHandler}
                   onSubmitHandler={this.onSubmitHandler}
+                  clearResults={this.clearResults}
+                  showClearBtn={this.state.players.length > 0 ? true : false}
                   loading={this.state.loading}
                 />
               )}
             />
-            <Route path="/games" render={props => <Games loading={this.state.loading} />} />
+            <Route
+              exact
+              path="/player/:id"
+              render={props => (
+                <Player
+                  player={this.state.player}
+                  loading={this.state.loading}
+                  getSeasonAvg={this.getSeasonAvg}
+                  seasonAvg={this.state.seasonAvg}
+                />
+              )}
+            />
+            <Route
+              path="/games"
+              render={props => <Games loading={this.state.loading} />}
+            />
           </Switch>
           <Footer />
         </div>

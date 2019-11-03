@@ -1,5 +1,105 @@
 .players-container {
-    flex: 1 0 auto;
-    max-width: 1200px;
-    margin: 2rem auto;
+  flex: 1 0 auto;
+  max-width: 1200px;
+  margin: 2rem auto;
+}
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-left: 1rem;
+}
+
+.players-heading {
+    margin-bottom: 2rem;
+}
+
+.search-players-form {
+    margin-bottom: 2rem;
+}
+
+.player-results-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: 1rem;
+    margin-top: 2rem;
+}
+
+.player-card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  min-width: 250px;
+  margin: auto;
+  background-color: #45a247;
+  padding: 1rem;
+  line-height: 1.4;
+  border-radius: 10px;
+}
+
+.player-name-link {
+    display: block;
+    color: #fff;
+    margin-bottom: 0.5rem;
+    text-align: center;
+    font-size: 18px;
+    letter-spacing: 1px;
+}
+
+.search-input {
+    font-size: 1.5rem;
+    color: #fff;
+    border: 1px solid #fff;
+    background-color: transparent;
+    padding: 0.5rem;
+}
+
+::placeholder,
+::-moz-placeholder {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.btn {
+    border: none;
+    color: #fff;
+    padding: 0.5rem 1rem;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.clear-btn {
+    background-color: #E1332D;
+    display: block;
+    align-self: flex-end;
+    margin-right: 1rem;
+}
+
+.submit-btn {
+    background-color: #2b32b2;
+    margin-top: 0.7rem;
+}
+
+@media only screen and (min-width: 769px) {
+    .player-results-container {
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+
+    .player-card {
+        font-size: 18px;
+        min-width: 300px;
+    }
+
+    .search-input {
+        padding: 0.5rem 1rem;
+    }
+
+    .submit-btn {
+        margin-left: 1rem;
+    }
+
+    .clear-btn {
+        align-self: flex-start;
+        margin-right: 0;
+    }
 }
