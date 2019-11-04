@@ -1,0 +1,9 @@
+.alert {
+    background-color: #E1332D;
+    color: #fff;
+    min-height: 48px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.4rem;
+}

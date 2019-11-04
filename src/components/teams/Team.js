@@ -10,10 +10,10 @@ const Team = props => {
 
     return (
         <div className="team-container">
-            <h1>{props.team.full_name}</h1>
-            <p>City: {props.team.city}</p>
-            <p>Division: {props.team.division}</p>
-            <p>Conference: {props.team.conference}</p>
+            <h1 className="team-heading">{props.team.full_name}</h1>
+            <p className="team-paragraph">City: <b style={{color: "#fff"}}>{props.team.city}</b></p>
+            <p className="team-paragraph">Division: <b style={{color: "#fff"}}>{props.team.division}</b></p>
+            <p className="team-paragraph">Conference: <b style={{color: "#fff"}}>{props.team.conference}</b></p>
         </div>
     )
 }

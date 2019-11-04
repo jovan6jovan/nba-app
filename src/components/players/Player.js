@@ -31,6 +31,15 @@ const Player = ({ loading, player, seasonAvg, getSeasonAvg }) => {
     turnover
   } = seasonAvg;
 
+  const showSeasonAvgTable = () => {
+    
+    return setTimeout(() => {
+      const tableContainer = document.getElementById("table-container");
+
+      tableContainer.classList.remove("hide");
+    }, 700)
+  }
+
   return (
     <div className="player-container">
       <div className="player-header">
@@ -42,115 +51,62 @@ const Player = ({ loading, player, seasonAvg, getSeasonAvg }) => {
         </p>
         {player.position && <p>Position: {player.position}</p>}
         {player.weight_pounds && <p>Weight: {player.weight_pounds} pounds</p>}
-        <button className="btn show-stats-btn" onClick={getSeasonAvg}>
+        <button className="btn show-stats-btn" onClick={() => {getSeasonAvg(); showSeasonAvgTable()}}>
           Show stats
         </button>
       </div>
-      <div className="show-season-stats">
-        <div className="single-stat-div">
-          <h5>Games</h5>
-          <h5>{games_played}</h5>
-        </div>
-        <div className="single-stat-div">
-          <h5>Minutes</h5>
-          <h5>{min}</h5>
-        </div>
-        <div className="single-stat-div">
-          <h5>Points</h5>
-          <h5>{pts}</h5>
-        </div>
-        <div className="single-stat-div">
-          <h5>FGA</h5>
-          <h5>{fga}</h5>
-        </div>
-        <div className="single-stat-div">
-          <h5>FGM</h5>
-          <h5>{fgm}</h5>
-        </div>
-        <div className="single-stat-div">
-          <h5>FG %</h5>
-          <h5>{fg_pct}</h5>
-        </div>
-        <div className="single-stat-div">
-          <h5>3FGA</h5>
-          <h5>{fg3a}</h5>
-        </div>
-        <div className="single-stat-div">
-          <h5>3FGM</h5>
-          <h5>{fg3m}</h5>
-        </div>
-        <div className="single-stat-div">
-          <h5>3FG %</h5>
-          <h5>{fg3_pct}</h5>
-        </div>
-        <div className="single-stat-div">
-          <h5>FTA</h5>
-          <h5>{fta}</h5>
-        </div>
-        <div className="single-stat-div">
-          <h5>FTM</h5>
-          <h5>{ftm}</h5>
-        </div>
-        <div className="single-stat-div">
-          <h5>FT %</h5>
-          <h5>{ft_pct}</h5>
-        </div>
-        <div className="single-stat-div">
-          <h5>FGA</h5>
-          <h5>{fga}</h5>
-        </div>
-        <div className="single-stat-div">
-          <h5>FGM</h5>
-          <h5>{fgm}</h5>
-        </div>
-        <div className="single-stat-div">
-          <h5>FG %</h5>
-          <h5>{fg_pct}</h5>
-        </div>
-        <div className="single-stat-div">
-          <h5>FGA</h5>
-          <h5>{fga}</h5>
-        </div>
-        <div className="single-stat-div">
-          <h5>FGM</h5>
-          <h5>{fgm}</h5>
-        </div>
-        <div className="single-stat-div">
-          <h5>FG %</h5>
-          <h5>{fg_pct}</h5>
-        </div>
-        <div className="single-stat-div">
-          <h5>Off. reb</h5>
-          <h5>{oreb}</h5>
-        </div>
-        <div className="single-stat-div">
-          <h5>Deff. reb</h5>
-          <h5>{dreb}</h5>
-        </div>
-        <div className="single-stat-div">
-          <h5>Total reb</h5>
-          <h5>{reb}</h5>
-        </div>
-        <div className="single-stat-div">
-          <h5>Asists</h5>
-          <h5>{ast}</h5>
-        </div>
-        <div className="single-stat-div">
-          <h5>Blocks</h5>
-          <h5>{blk}</h5>
-        </div>
-        <div className="single-stat-div">
-          <h5>Steals</h5>
-          <h5>{stl}</h5>
-        </div>
-        <div className="single-stat-div">
-          <h5>Fouls</h5>
-          <h5>{pf}</h5>
-        </div>
-        <div className="single-stat-div">
-          <h5>Turnovers</h5>
-          <h5>{turnover}</h5>
-        </div>
+      <div className="table-container hide" id="table-container">
+        <table className="player-season-avg-stats">
+          <caption className="table-caption">{player.first_name} {player.last_name}'s season average stats</caption>
+          <thead>
+            <tr>
+              <th>GP</th>
+              <th>MIN</th>
+              <th>PTS</th>
+              <th>FGA</th>
+              <th>FGM</th>
+              <th>FG %</th>
+              <th>3FGA</th>
+              <th>3FGM</th>
+              <th>3FG %</th>
+              <th className="hide-stat">FTA</th>
+              <th className="hide-stat">FTM</th>
+              <th className="hide-stat">FT %</th>
+              <th className="hide-stat">O. REB</th>
+              <th className="hide-stat">D. REB</th>
+              <th>TOTAL REB</th>
+              <th>AST</th>
+              <th>BLK</th>
+              <th>STL</th>
+              <th>PF</th>
+              <th>TO</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>{games_played}</td>
+              <td>{min}</td>
+              <td>{pts}</td>
+              <td>{fga}</td>
+              <td>{fgm}</td>
+              <td>{String(Math.round(fg_pct * 100))}</td>
+              <td>{fg3a}</td>
+              <td>{fg3m}</td>
+              <td>{String(Math.round(fg3_pct * 100))}</td>
+              <td className="hide-stat">{fta}</td>
+              <td className="hide-stat">{ftm}</td>
+              <td className="hide-stat">{String(Math.round(ft_pct * 100))}</td>
+              <td className="hide-stat">{oreb}</td>
+              <td className="hide-stat">{dreb}</td>
+              <td>{reb}</td>
+              <td>{ast}</td>
+              <td>{blk}</td>
+              <td>{stl}</td>
+              <td>{pf}</td>
+              <td>{turnover}</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
   );

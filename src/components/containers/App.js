@@ -5,10 +5,12 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 import "../teams/Teams.css";
 import Spinner from "../layout/Spinner";
 import Navbar from "../layout/Navbar";
+import LandingPage from "../layout/LandingPage";
 import Footer from "../layout/Footer";
 import Teams from "../teams/Teams";
 import Team from "../teams/Team";
 import Players from "../players/Players";
+import Alert from "../layout/Alert";
 import Player from "../players/Player";
 import Games from "../games/Games";
 
@@ -18,6 +20,7 @@ class App extends React.Component {
     teams: [],
     team: {},
     term: "",
+    alert: null,
     players: [],
     player: {},
     seasonAvg: {}
@@ -63,16 +66,24 @@ class App extends React.Component {
       );
 
       this.setState({ player: response.data, loading: false });
-      console.log(this.state.player);
     }
   };
+
+  setAlert = (msg) => {
+    this.setState({ alert: {msg: msg}});
+    setTimeout(() => this.setState({ alert: null}), 4000);
+  }
 
   onChangeHandler = e => this.setState({ term: e.target.value });
 
   onSubmitHandler = e => {
     e.preventDefault();
-    this.searchPlayers(this.state.term);
-    this.setState({ term: "" });
+    if(this.state.term === ""){
+      this.setAlert("Please enter the player's name", "danger")
+    } else {
+      this.searchPlayers(this.state.term);
+      this.setState({ term: "" });
+    }
   };
 
   getSeasonAvg = async () => {
@@ -81,7 +92,6 @@ class App extends React.Component {
     );
 
     this.setState({ seasonAvg: response.data.data[0]});
-    console.log(this.state.seasonAvg)
   };
 
   render() {
@@ -93,10 +103,15 @@ class App extends React.Component {
       <BrowserRouter>
         <div className="container">
           <Navbar />
+          <Alert alert={this.state.alert} />
           <Switch>
             <Route
+              exact path="/"
+              render={props => <LandingPage />}
+            />
+            <Route
               exact
-              path="/"
+              path="/teams"
               render={props => (
                 <Teams
                   teams={this.state.teams}
