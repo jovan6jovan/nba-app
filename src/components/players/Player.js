@@ -2,111 +2,42 @@ import React from "react";
 
 import Spinner from "../layout/Spinner";
 import "../players/Player.css";
+import SeasonAvgTable from "../tables/SeasonAvgTable";
+import StatsByGameTable from "../tables/StatsByGameTable";
 
-const Player = ({ loading, player, seasonAvg, getSeasonAvg }) => {
+const Player = ({ loading, player, seasonAvg, getSeasonAvg, byGameStats, statsByGame }) => {
   if (loading) {
     return <Spinner />;
   }
 
-  const {
-    games_played,
-    min,
-    pts,
-    fga,
-    fgm,
-    fg_pct,
-    fg3a,
-    fg3m,
-    fg3_pct,
-    fta,
-    ftm,
-    ft_pct,
-    oreb,
-    dreb,
-    reb,
-    ast,
-    blk,
-    stl,
-    pf,
-    turnover
-  } = seasonAvg;
+  const showSeasonAvgTable = () => setTimeout(() => document.getElementById("season-table-container").classList.remove("hide"), 700);
 
-  const showSeasonAvgTable = () => {
-    
-    return setTimeout(() => {
-      const tableContainer = document.getElementById("table-container");
-
-      tableContainer.classList.remove("hide");
-    }, 700)
-  }
+  const showStatsByGame = () => setTimeout(() => document.getElementById("game-table-container")
+  .classList.remove("hide"), 700);
 
   return (
     <div className="player-container">
       <div className="player-header">
-        <h1>
+        <h1 className="player-heading">
           {player.first_name} {player.last_name}
         </h1>
-        <p>
-          Height: {player.height_feet}'{player.height_inches}
+        <p className="player-paragraph">
+          Height: <b style={{color: "#fff"}}>{player.height_feet}'{player.height_inches}</b>
         </p>
-        {player.position && <p>Position: {player.position}</p>}
-        {player.weight_pounds && <p>Weight: {player.weight_pounds} pounds</p>}
-        <button className="btn show-stats-btn" onClick={() => {getSeasonAvg(); showSeasonAvgTable()}}>
-          Show stats
-        </button>
+        {player.position && <p className="player-paragraph">Position: <b style={{color: "#fff"}}>{player.position}</b></p>}
+        {player.weight_pounds && <p className="player-paragraph">Weight: <b style={{color: "#fff"}}>{player.weight_pounds} pounds</b></p>}
+        <div className="buttons-container">
+          <button className="btn show-stats-btn" onClick={() => {getSeasonAvg(); showSeasonAvgTable()}}>
+            Show season average stats
+          </button>
+          <button className="btn ten-games-btn" onClick={() => {statsByGame(); showStatsByGame()}}>Stats by game</button>
+        </div>
       </div>
-      <div className="table-container hide" id="table-container">
-        <table className="player-season-avg-stats">
-          <caption className="table-caption">{player.first_name} {player.last_name}'s season average stats</caption>
-          <thead>
-            <tr>
-              <th>GP</th>
-              <th>MIN</th>
-              <th>PTS</th>
-              <th>FGA</th>
-              <th>FGM</th>
-              <th>FG %</th>
-              <th>3FGA</th>
-              <th>3FGM</th>
-              <th>3FG %</th>
-              <th className="hide-stat">FTA</th>
-              <th className="hide-stat">FTM</th>
-              <th className="hide-stat">FT %</th>
-              <th className="hide-stat">O. REB</th>
-              <th className="hide-stat">D. REB</th>
-              <th>TOTAL REB</th>
-              <th>AST</th>
-              <th>BLK</th>
-              <th>STL</th>
-              <th>PF</th>
-              <th>TO</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>{games_played}</td>
-              <td>{min}</td>
-              <td>{pts}</td>
-              <td>{fga}</td>
-              <td>{fgm}</td>
-              <td>{String(Math.round(fg_pct * 100))}</td>
-              <td>{fg3a}</td>
-              <td>{fg3m}</td>
-              <td>{String(Math.round(fg3_pct * 100))}</td>
-              <td className="hide-stat">{fta}</td>
-              <td className="hide-stat">{ftm}</td>
-              <td className="hide-stat">{String(Math.round(ft_pct * 100))}</td>
-              <td className="hide-stat">{oreb}</td>
-              <td className="hide-stat">{dreb}</td>
-              <td>{reb}</td>
-              <td>{ast}</td>
-              <td>{blk}</td>
-              <td>{stl}</td>
-              <td>{pf}</td>
-              <td>{turnover}</td>
-            </tr>
-          </tbody>
-        </table>
+      <div className="table-container hide" id="season-table-container">
+        <SeasonAvgTable seasonAvg={seasonAvg} player={player} />
+      </div>
+      <div className="table-container hide" id="game-table-container">
+        <StatsByGameTable byGameStats={byGameStats} player={player} />
       </div>
     </div>
   );

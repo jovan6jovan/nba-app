@@ -23,7 +23,8 @@ class App extends React.Component {
     alert: null,
     players: [],
     player: {},
-    seasonAvg: {}
+    seasonAvg: {},
+    byGameStats: []
   };
 
   async componentDidMount() {
@@ -94,6 +95,14 @@ class App extends React.Component {
     this.setState({ seasonAvg: response.data.data[0]});
   };
 
+  statsByGame = async () => {
+    const response = await axios.get(
+      `https://www.balldontlie.io/api/v1/stats?seasons[]=2019&player_ids[]=${this.state.player.id}`
+    );
+
+    this.setState({ byGameStats: response.data.data});
+  }
+
   render() {
     if (this.state.loading) {
       return <Spinner />;
@@ -151,6 +160,8 @@ class App extends React.Component {
                   loading={this.state.loading}
                   getSeasonAvg={this.getSeasonAvg}
                   seasonAvg={this.state.seasonAvg}
+                  byGameStats={this.state.byGameStats}
+                  statsByGame={this.statsByGame}
                 />
               )}
             />

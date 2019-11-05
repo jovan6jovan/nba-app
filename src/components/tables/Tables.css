@@ -1,0 +1,45 @@
+table {
+    width: 90%;
+    margin: auto;
+    border-collapse: collapse;
+    font-family: 'Alegreya', serif;
+    font-size: 0.8rem;
+}
+
+.table-caption {
+    margin-bottom: 0.5rem;
+    text-align: left;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+thead {
+    background: #283c86;
+    color: #fff;
+    letter-spacing: 1px;
+}
+  
+tbody {
+    background: #fff;
+    font-weight: 700;
+}
+
+td, th {
+    border: 1px solid #ddd;
+    text-align: center;
+    padding: 8px;
+}
+
+.hide-stat {
+    display: none;
+}
+
+@media only screen and (min-width: 769px) {
+    table {
+        font-size: 1rem;
+    }
+
+    .hide-stat {
+        display: table-cell;
+    }
+}

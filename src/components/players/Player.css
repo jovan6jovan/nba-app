@@ -13,63 +13,44 @@
     line-height: 1.5;
 }
 
+.player-heading {
+    font-size: 3rem;
+    text-align: center;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+}
+
+.player-paragraph {
+    font-size: 1.5rem;
+}
+
+.buttons-container {
+    display: flex;
+    flex-direction: column;
+}
+
 .show-stats-btn {
     margin-top: 1rem;
     background-color: #45a247;
 }
 
+.ten-games-btn {
+    margin-top: 1rem;
+    background-color: #283c86;
+}
+
 .table-container {
-    overflow: scroll;
+    overflow-x: scroll;
     margin-top: 2rem;
     width: 90%;
 }
 
-.player-season-avg-stats {
-    width: 90%;
-    margin: auto;
-    border-collapse: collapse;
-    font-family: 'Alegreya', serif;
-    font-size: 0.8rem;
-}
-
-.table-caption {
-    margin-bottom: 0.5rem;
-    text-align: left;
-    font-weight: 700;
-    letter-spacing: 1px;
-}
-
-thead {
-    background: #283c86;
-    color: #fff;
-    letter-spacing: 1px;
-}
-  
-tbody {
-    background: #fff;
-    font-weight: 700;
-}
-
-td, th {
-    border: 1px solid #ddd;
-    text-align: center;
-    padding: 8px;
-}
-
-.hide-stat {
-    display: none;
+#game-table-container {
+    margin-bottom: 2rem;
 }
 
 @media only screen and (min-width: 769px) {
     .table-container {
         overflow: hidden;
-    }
-
-    .player-season-avg-stats {
-        font-size: 1rem;
-    }
-
-    .hide-stat {
-        display: table-cell;
     }
 }
