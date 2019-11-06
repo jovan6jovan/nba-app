@@ -1,0 +1,58 @@
+.games-container {
+  flex: 1 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.games-btn {
+  background-color: #45a247;
+}
+
+.game-container {
+  display: flex;
+  flex-direction: column;
+  width: 40%;
+  margin: auto;
+  text-align: center;
+  background: #ddd;
+  border: 1px solid black;
+  margin: 1rem 0;
+}
+
+.date-and-time {
+  display: flex;
+  flex-direction: column;
+  border-bottom: 1px solid black;
+  padding: 5px;
+  line-height: 1.4;
+}
+
+.team-vs-team-paragraph {
+    font-size: 1.2rem;
+    padding: 0.6rem;
+    display: flex;
+    flex-direction: column;
+    line-height: 1.4;
+}
+
+@media only screen and (min-width: 769px) {
+    .date-and-time {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    .date-heading {
+        margin-left: 1rem;
+    }
+    
+    .time-heading {
+        margin-right: 1rem;
+    }
+
+    .team-vs-team-paragraph {
+        display: block;
+        font-size: 1.4rem;
+    }
+}

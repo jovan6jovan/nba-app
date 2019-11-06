@@ -6,9 +6,9 @@ const Navbar = () => {
   return (
     <nav className="main-nav">
       <Link to="/">Home</Link>
-      <Link to="/teams">Teams</Link>
       <Link to="/players">Players</Link>
-      <Link to="/games">Today's matches</Link>
+      <Link to="/teams">Teams</Link>
+      <Link to="/games">Tonight's matches</Link>
     </nav>
   );
 };

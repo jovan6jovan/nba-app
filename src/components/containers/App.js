@@ -24,7 +24,8 @@ class App extends React.Component {
     players: [],
     player: {},
     seasonAvg: {},
-    byGameStats: []
+    byGameStats: [],
+    games: []
   };
 
   async componentDidMount() {
@@ -103,6 +104,15 @@ class App extends React.Component {
     this.setState({ byGameStats: response.data.data});
   }
 
+  getTodaysGames = async () => {
+    const today = new Date().toISOString().slice(0,10);
+    
+    const response = await axios.get(`https://www.balldontlie.io/api/v1/games?start_date=${today}&end_date=${today}`)
+
+    this.setState({ games: response.data.data})
+    console.log(this.state.games);
+  }
+
   render() {
     if (this.state.loading) {
       return <Spinner />;
@@ -167,7 +177,13 @@ class App extends React.Component {
             />
             <Route
               path="/games"
-              render={props => <Games loading={this.state.loading} />}
+              render={props => (
+                <Games
+                  loading={this.state.loading}
+                  games={this.state.games}
+                  getTodaysGames={this.getTodaysGames} 
+                />
+              )}
             />
           </Switch>
           <Footer />
