@@ -59,7 +59,7 @@ const SeasonAvgTable = ({ player, seasonAvg }) => {
         <tr>
           <td>{games_played}</td>
           <td>{min}</td>
-          <td style={{backgroundColor: "#45a247", color: "#fff"}}>{pts}</td>
+          <td style={{ backgroundColor: "#c9082a", color: "#fff" }}>{pts}</td>
           <td>{fga}</td>
           <td>{fgm}</td>
           <td>{String(Math.round(fg_pct * 100))}</td>

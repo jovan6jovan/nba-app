@@ -6,8 +6,19 @@
   align-items: center;
 }
 
-.games-btn {
-  background-color: #45a247;
+.buttons-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.show-games-btn {
+  background-color: #3e92cc;
+}
+
+.clear-games-btn {
+  background-color: #c9082a;
+  display: block;
+  margin-top: 1rem;
 }
 
 .game-container {
@@ -16,7 +27,8 @@
   width: 40%;
   margin: auto;
   text-align: center;
-  background: #ddd;
+  background: #c9082a;
+  color: #fff;
   border: 1px solid black;
   margin: 1rem 0;
 }
@@ -30,29 +42,39 @@
 }
 
 .team-vs-team-paragraph {
-    font-size: 1.2rem;
-    padding: 0.6rem;
-    display: flex;
-    flex-direction: column;
-    line-height: 1.4;
+  font-size: 1.2rem;
+  padding: 0.6rem;
+  display: flex;
+  flex-direction: column;
+  line-height: 1.4;
 }
 
 @media only screen and (min-width: 769px) {
-    .date-and-time {
-        flex-direction: row;
-        justify-content: space-between;
-    }
+  .buttons-container {
+    flex-direction: row;
+    justify-content: space-between;
+    width: 40%;
+  }
 
-    .date-heading {
-        margin-left: 1rem;
-    }
-    
-    .time-heading {
-        margin-right: 1rem;
-    }
+  .clear-games-btn {
+    margin-top: 0;
+  }
 
-    .team-vs-team-paragraph {
-        display: block;
-        font-size: 1.4rem;
-    }
+  .date-and-time {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .date-heading {
+    margin-left: 1rem;
+  }
+
+  .time-heading {
+    margin-right: 1rem;
+  }
+
+  .team-vs-team-paragraph {
+    display: block;
+    font-size: 1.4rem;
+  }
 }

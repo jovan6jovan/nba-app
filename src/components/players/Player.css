@@ -1,56 +1,56 @@
 .player-container {
-    flex: 1 0 auto;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+  flex: 1 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .player-header {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    line-height: 1.5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  line-height: 1.5;
 }
 
 .player-heading {
-    font-size: 3rem;
-    text-align: center;
-    line-height: 1.2;
-    margin-bottom: 1rem;
+  font-size: 3rem;
+  text-align: center;
+  line-height: 1.2;
+  margin-bottom: 1rem;
 }
 
 .player-paragraph {
-    font-size: 1.5rem;
+  font-size: 1.5rem;
 }
 
-.buttons-container {
-    display: flex;
-    flex-direction: column;
+.btns-container {
+  display: flex;
+  flex-direction: column;
 }
 
-.show-stats-btn {
-    margin-top: 1rem;
-    background-color: #45a247;
+.show-avg-stats-btn {
+  margin-top: 1rem;
+  background-color: #3e92cc;
 }
 
-.ten-games-btn {
-    margin-top: 1rem;
-    background-color: #283c86;
+.show-game-stats-btn {
+  margin-top: 1rem;
+  background-color: #c9082a;
 }
 
 .table-container {
-    overflow-x: scroll;
-    margin-top: 2rem;
-    width: 90%;
+  overflow-x: scroll;
+  margin-top: 2rem;
+  width: 90%;
 }
 
 #game-table-container {
-    margin-bottom: 2rem;
+  margin-bottom: 2rem;
 }
 
 @media only screen and (min-width: 769px) {
-    .table-container {
-        overflow: hidden;
-    }
+  .table-container {
+    overflow: hidden;
+  }
 }

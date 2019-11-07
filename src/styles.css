@@ -1,3 +1,11 @@
+/* 
+=== COLOR PALETTE ===
+  blue: #17408b;
+  light-blue: #3e92cc;
+  white: #fff;
+  red: #c9082a;
+*/
+
 * {
   margin: 0;
   padding: 0;
@@ -6,7 +14,7 @@
 
 body {
   font-family: "Lato", sans-serif;
-  background: #1488cc;
+  background: #17408b;
 }
 
 .container {
@@ -17,4 +25,9 @@ body {
 
 .hide {
   display: none;
+}
+
+h1,
+h2 {
+  color: #fff;
 }

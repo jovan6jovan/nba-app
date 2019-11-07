@@ -54,10 +54,16 @@ class App extends React.Component {
       `https://www.balldontlie.io/api/v1/players?search=${term}`
     );
 
-    this.setState({ players: response.data.data, loading: false });
+    if (response.data.data.length === 0) {
+      this.setAlert("There is no NBA player with that name", "danger");
+      this.setState({ loading: false });
+    } else {
+      this.setState({ players: response.data.data, loading: false });
+    }
   };
 
-  clearResults = () => this.setState({ players: [], loading: false });
+  clearPlayersResults = () => this.setState({ players: [], loading: false });
+  clearGamesResults = () => this.setState({ games: [], loading: false });
 
   getPlayerInfo = async e => {
     if (e.target.id !== "") {
@@ -71,17 +77,17 @@ class App extends React.Component {
     }
   };
 
-  setAlert = (msg) => {
-    this.setState({ alert: {msg: msg}});
-    setTimeout(() => this.setState({ alert: null}), 4000);
-  }
+  setAlert = msg => {
+    this.setState({ alert: { msg: msg } });
+    setTimeout(() => this.setState({ alert: null }), 5000);
+  };
 
   onChangeHandler = e => this.setState({ term: e.target.value });
 
   onSubmitHandler = e => {
     e.preventDefault();
-    if(this.state.term === ""){
-      this.setAlert("Please enter the player's name", "danger")
+    if (this.state.term === "") {
+      this.setAlert("Please enter the player's name", "danger");
     } else {
       this.searchPlayers(this.state.term);
       this.setState({ term: "" });
@@ -93,7 +99,7 @@ class App extends React.Component {
       `https://www.balldontlie.io/api/v1/season_averages?player_ids[]=${this.state.player.id}`
     );
 
-    this.setState({ seasonAvg: response.data.data[0]});
+    this.setState({ seasonAvg: response.data.data[0] });
   };
 
   statsByGame = async () => {
@@ -101,17 +107,18 @@ class App extends React.Component {
       `https://www.balldontlie.io/api/v1/stats?seasons[]=2019&player_ids[]=${this.state.player.id}`
     );
 
-    this.setState({ byGameStats: response.data.data});
-  }
+    this.setState({ byGameStats: response.data.data });
+  };
 
   getTodaysGames = async () => {
-    const today = new Date().toISOString().slice(0,10);
-    
-    const response = await axios.get(`https://www.balldontlie.io/api/v1/games?start_date=${today}&end_date=${today}`)
+    const today = new Date().toISOString().slice(0, 10);
 
-    this.setState({ games: response.data.data})
-    console.log(this.state.games);
-  }
+    const response = await axios.get(
+      `https://www.balldontlie.io/api/v1/games?start_date=${today}&end_date=${today}`
+    );
+
+    this.setState({ games: response.data.data });
+  };
 
   render() {
     if (this.state.loading) {
@@ -124,10 +131,7 @@ class App extends React.Component {
           <Navbar />
           <Alert alert={this.state.alert} />
           <Switch>
-            <Route
-              exact path="/"
-              render={props => <LandingPage />}
-            />
+            <Route exact path="/" render={props => <LandingPage />} />
             <Route
               exact
               path="/teams"
@@ -155,7 +159,7 @@ class App extends React.Component {
                   getPlayerInfo={this.getPlayerInfo}
                   onChangeHandler={this.onChangeHandler}
                   onSubmitHandler={this.onSubmitHandler}
-                  clearResults={this.clearResults}
+                  clearPlayersResults={this.clearPlayersResults}
                   showClearBtn={this.state.players.length > 0 ? true : false}
                   loading={this.state.loading}
                 />
@@ -181,7 +185,9 @@ class App extends React.Component {
                 <Games
                   loading={this.state.loading}
                   games={this.state.games}
-                  getTodaysGames={this.getTodaysGames} 
+                  getTodaysGames={this.getTodaysGames}
+                  clearGamesResults={this.clearGamesResults}
+                  showClearBtn={this.state.games.length > 0 ? true : false}
                 />
               )}
             />

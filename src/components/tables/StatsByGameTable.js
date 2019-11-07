@@ -70,7 +70,7 @@ const StatsByGameTable = ({ byGameStats, player }) => {
         <td>{byGame.stl}</td>
         <td>{byGame.pf}</td>
         <td>{byGame.turnover}</td>
-        <td style={{ backgroundColor: "#45a247", color: "#fff" }}>
+        <td style={{ backgroundColor: "#c9082a", color: "#fff" }}>
           {byGame.pts}
         </td>
       </tr>
@@ -80,7 +80,7 @@ const StatsByGameTable = ({ byGameStats, player }) => {
   return (
     <table>
       <caption className="table-caption">
-        {player.first_name} {player.last_name}'s stats by individual game
+        {player.first_name} {player.last_name}'s stats by game
       </caption>
       <thead>
         <tr>
