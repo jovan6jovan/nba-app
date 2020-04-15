@@ -1,18 +1,11 @@
 import React from "react";
 import axios from "axios";
-import { BrowserRouter, Switch, Route } from "react-router-dom";
+import Routes from "../routes/Routes";
 
 import "../teams/Teams.css";
 import Spinner from "../layout/Spinner";
 import Navbar from "../layout/Navbar";
-import LandingPage from "../layout/LandingPage";
 import Footer from "../layout/Footer";
-import Teams from "../teams/Teams";
-import Team from "../teams/Team";
-import Players from "../players/Players";
-import Alert from "../layout/Alert";
-import Player from "../players/Player";
-import Games from "../games/Games";
 
 class App extends React.Component {
   state = {
@@ -28,14 +21,6 @@ class App extends React.Component {
     byGameStats: [],
     games: [],
   };
-
-  async componentDidMount() {
-    this.setState({ loading: true });
-
-    const response = await axios.get("https://www.balldontlie.io/api/v1/teams");
-
-    this.setState({ teams: response.data.data, loading: false });
-  }
 
   getTeamInfo = async (e) => {
     if (e.target.id !== "") {
@@ -123,93 +108,17 @@ class App extends React.Component {
     }
   };
 
-  getTodaysGames = async () => {
-    const today = new Date().toISOString().slice(0, 10);
-
-    const response = await axios.get(
-      `https://www.balldontlie.io/api/v1/games?start_date=${today}&end_date=${today}`
-    );
-
-    this.setState({ games: response.data.data });
-  };
-
   render() {
     if (this.state.loading) {
       return <Spinner />;
     }
 
     return (
-      <BrowserRouter>
-        <div className="container">
-          <Navbar />
-          <Alert alert={this.state.alert} />
-          <Switch>
-            <Route exact path="/" render={(props) => <LandingPage />} />
-            <Route
-              exact
-              path="/teams"
-              render={(props) => (
-                <Teams
-                  teams={this.state.teams}
-                  getTeamInfo={this.getTeamInfo}
-                  loading={this.state.loading}
-                />
-              )}
-            />
-            <Route
-              exact
-              path="/team/:id"
-              render={(props) => (
-                <Team team={this.state.team} loading={this.state.loading} />
-              )}
-            />
-            <Route
-              path="/players"
-              render={(props) => (
-                <Players
-                  term={this.state.term}
-                  players={this.state.players}
-                  getPlayerInfo={this.getPlayerInfo}
-                  onChangeHandler={this.onChangeHandler}
-                  onSubmitHandler={this.onSubmitHandler}
-                  clearPlayersResults={this.clearPlayersResults}
-                  showClearBtn={this.state.players.length > 0 ? true : false}
-                  loading={this.state.loading}
-                />
-              )}
-            />
-            <Route
-              exact
-              path="/player/:id"
-              render={(props) => (
-                <Player
-                  player={this.state.player}
-                  activePlayer={this.state.activePlayer}
-                  loading={this.state.loading}
-                  getSeasonAvg={this.getSeasonAvg}
-                  seasonAvg={this.state.seasonAvg}
-                  byGameStats={this.state.byGameStats}
-                  statsByGame={this.statsByGame}
-                  clearAvgStats={this.clearAvgStats}
-                />
-              )}
-            />
-            <Route
-              path="/games"
-              render={(props) => (
-                <Games
-                  loading={this.state.loading}
-                  games={this.state.games}
-                  getTodaysGames={this.getTodaysGames}
-                  clearGamesResults={this.clearGamesResults}
-                  showClearBtn={this.state.games.length > 0 ? true : false}
-                />
-              )}
-            />
-          </Switch>
-          <Footer />
-        </div>
-      </BrowserRouter>
+      <div className="container">
+        <Navbar />
+        <Routes />
+        <Footer />
+      </div>
     );
   }
 }

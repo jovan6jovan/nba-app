@@ -1,0 +1,51 @@
+<Route
+  exact path="/team/:id"
+  render={(props) => (
+    <Team team={this.state.team} loading={this.state.loading} />
+  )}
+/>
+
+<Route
+  exact
+  path="/player/:id"
+  render={(props) => (
+    <Player
+      player={this.state.player}
+      activePlayer={this.state.activePlayer}
+      loading={this.state.loading}
+      getSeasonAvg={this.getSeasonAvg}
+      seasonAvg={this.state.seasonAvg}
+      byGameStats={this.state.byGameStats}
+      statsByGame={this.statsByGame}
+      clearAvgStats={this.clearAvgStats}
+    />
+  )}
+/>
+
+<Alert alert={this.state.alert} />
+
+<Teams
+  teams={this.state.teams}
+  getTeamInfo={this.getTeamInfo}
+  loading={this.state.loading}
+/>
+
+<Players
+  term={this.state.term}
+  players={this.state.players}
+  getPlayerInfo={this.getPlayerInfo}
+  onChangeHandler={this.onChangeHandler}
+  onSubmitHandler={this.onSubmitHandler}
+  clearPlayersResults={this.clearPlayersResults}
+  showClearBtn={this.state.players.length > 0 ? true : false}
+  loading={this.state.loading}
+/>
+
+<Games
+  loading={this.state.loading}
+  games={this.state.games}
+  getTodaysGames={this.getTodaysGames}
+  clearGamesResults={this.clearGamesResults}
+  showClearBtn={this.state.games.length > 0 ? true : false}
+/>
+{ games, getTodaysGames, showClearBtn, clearGamesResults }
