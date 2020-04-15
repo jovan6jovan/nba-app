@@ -3,7 +3,7 @@ import React from "react";
 import "./Team.css";
 import Spinner from "../layout/Spinner";
 
-const Team = props => {
+const Team = (props) => {
   if (props.loading) {
     return <Spinner />;
   }

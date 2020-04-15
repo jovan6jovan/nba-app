@@ -3,10 +3,10 @@ import { Link } from "react-router-dom";
 
 const Teams = ({ teams, getTeamInfo }) => {
   const atlanticDivisionTeams = teams
-    .filter(team => {
+    .filter((team) => {
       return team.division === "Atlantic";
     })
-    .map(team => (
+    .map((team) => (
       <h4 className="team-name-heading" key={team.id}>
         <Link
           to={`/team/${team.id}`}
@@ -20,8 +20,8 @@ const Teams = ({ teams, getTeamInfo }) => {
     ));
 
   const pacificDivisionTeams = teams
-    .filter(team => team.division === "Pacific")
-    .map(team => (
+    .filter((team) => team.division === "Pacific")
+    .map((team) => (
       <h4 className="team-name-heading" key={team.id}>
         <Link
           to={`/team/${team.id}`}
@@ -35,8 +35,8 @@ const Teams = ({ teams, getTeamInfo }) => {
     ));
 
   const centralDivisionTeams = teams
-    .filter(team => team.division === "Central")
-    .map(team => (
+    .filter((team) => team.division === "Central")
+    .map((team) => (
       <h4 className="team-name-heading" key={team.id}>
         <Link
           to={`/team/${team.id}`}
@@ -50,8 +50,8 @@ const Teams = ({ teams, getTeamInfo }) => {
     ));
 
   const southeastDivisionTeams = teams
-    .filter(team => team.division === "Southeast")
-    .map(team => (
+    .filter((team) => team.division === "Southeast")
+    .map((team) => (
       <h4 className="team-name-heading" key={team.id}>
         <Link
           to={`/team/${team.id}`}
@@ -65,8 +65,8 @@ const Teams = ({ teams, getTeamInfo }) => {
     ));
 
   const southwestDivisionTeams = teams
-    .filter(team => team.division === "Southwest")
-    .map(team => (
+    .filter((team) => team.division === "Southwest")
+    .map((team) => (
       <h4 className="team-name-heading" key={team.id}>
         <Link
           to={`/team/${team.id}`}
@@ -80,8 +80,8 @@ const Teams = ({ teams, getTeamInfo }) => {
     ));
 
   const northwestDivisionTeams = teams
-    .filter(team => team.division === "Northwest")
-    .map(team => (
+    .filter((team) => team.division === "Northwest")
+    .map((team) => (
       <h4 className="team-name-heading" key={team.id}>
         <Link
           to={`/team/${team.id}`}

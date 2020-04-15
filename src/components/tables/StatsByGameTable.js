@@ -33,10 +33,10 @@ const StatsByGameTable = ({ byGameStats, player }) => {
     27: "SAS",
     28: "TOR",
     29: "UTA",
-    30: "WAS"
+    30: "WAS",
   };
 
-  const stats = byGameStats.map(byGame => {
+  const stats = byGameStats.map((byGame) => {
     const date = new Date(byGame.game.date);
     const idPicker = (homeID, playerID, visitorID, teamsIDs) => {
       return playerID === homeID ? teamsIDs[visitorID] : teamsIDs[homeID];

@@ -23,7 +23,7 @@ const SeasonAvgTable = ({ player, seasonAvg }) => {
     blk,
     stl,
     pf,
-    turnover
+    turnover,
   } = seasonAvg;
 
   return (

@@ -3,7 +3,7 @@ import React from "react";
 import "./Games.css";
 
 const Games = ({ games, getTodaysGames, showClearBtn, clearGamesResults }) => {
-  const gamesList = games.map(game => {
+  const gamesList = games.map((game) => {
     const date = new Date(game.date);
     return (
       <div key={game.id} className="game-container">

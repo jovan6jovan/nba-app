@@ -12,13 +12,13 @@ const Players = ({
   players,
   getPlayerInfo,
   loading,
-  showClearBtn
+  showClearBtn,
 }) => {
   if (loading) {
     return <Spinner />;
   }
 
-  const playersList = players.map(player => {
+  const playersList = players.map((player) => {
     return (
       <div key={player.id} className="player-card">
         <Link
