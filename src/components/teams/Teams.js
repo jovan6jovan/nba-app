@@ -1,28 +1,23 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, Switch, Route } from "react-router-dom";
 import axios from "axios";
 
-const Teams = ({ getTeamInfo }) => {
+import Team from "./Team";
+
+const Teams = () => {
   const [teams, setTeams] = useState([]);
+  const [team, setTeam] = useState({});
 
   useEffect(() => {
-    async function getTeams() {
-      const response = await axios.get("https://www.balldontlie.io/api/v1/teams");
-      setTeams(response.data.data);
-    }
+    let isSubscribed = true;
+    axios.get("https://www.balldontlie.io/api/v1/teams").then((teams) => {
+      if (isSubscribed) {
+        setTeams(teams.data.data);
+      }
+    });
 
-    getTeams();
+    return () => (isSubscribed = false);
   }, []);
-
-  // const getTeamInfo = async (e) => {
-  //   if (e.target.id !== "") {
-  //     const response = await axios.get(
-  //       `https://www.balldontlie.io/api/v1/teams/${e.target.id}`
-  //     );
-
-  //     setTeam(response.data);
-  //   }
-  // };
 
   const filterTeamsByDivision = (divisionName) => {
     return teams
@@ -35,7 +30,12 @@ const Teams = ({ getTeamInfo }) => {
             to={`/team/${team.id}`}
             id={team.id}
             className="team-link"
-            onClick={getTeamInfo}
+            onClick={async (e) => {
+              const response = await axios.get(
+                `https://www.balldontlie.io/api/v1/teams/${e.target.id}`
+              );
+              setTeam(response.data);
+            }}
           >
             {team.full_name}
           </Link>
@@ -51,7 +51,7 @@ const Teams = ({ getTeamInfo }) => {
   const northwestDivisionTeams = filterTeamsByDivision("Northwest");
 
   return (
-    <React.Fragment>
+    <>
       <h1 className="teams-heading">NBA Teams</h1>
       <div className="divisions-container">
         <div className="divisions-team">
@@ -79,7 +79,14 @@ const Teams = ({ getTeamInfo }) => {
           {northwestDivisionTeams}
         </div>
       </div>
-    </React.Fragment>
+      <Switch>
+        <Route
+          exact
+          path="/team/:id"
+          render={(props) => <Team team={team} />}
+        />
+      </Switch>
+    </>
   );
 };
 

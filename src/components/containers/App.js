@@ -1,6 +1,6 @@
 import React from "react";
 import axios from "axios";
-import Routes from "../routes/Routes";
+import MainRoutes from "../routes/MainRoutes";
 
 import "../teams/Teams.css";
 import Spinner from "../layout/Spinner";
@@ -10,27 +10,13 @@ import Footer from "../layout/Footer";
 class App extends React.Component {
   state = {
     loading: false,
-    teams: [],
-    team: {},
     term: "",
     alert: null,
     players: [],
     player: {},
     activePlayer: true,
     seasonAvg: {},
-    byGameStats: [],
-    games: [],
-  };
-
-  getTeamInfo = async (e) => {
-    if (e.target.id !== "") {
-      this.setState({ loading: true });
-
-      const response = await axios.get(
-        `https://www.balldontlie.io/api/v1/teams/${e.target.id}`
-      );
-      this.setState({ team: response.data, loading: false });
-    }
+    byGameStats: []
   };
 
   searchPlayers = async (term) => {
@@ -116,7 +102,7 @@ class App extends React.Component {
     return (
       <div className="container">
         <Navbar />
-        <Routes />
+        <MainRoutes />
         <Footer />
       </div>
     );

@@ -8,6 +8,8 @@ const Team = (props) => {
     return <Spinner />;
   }
 
+  console.log(props);
+  
   return (
     <div className="team-container">
       <h1 className="team-heading">{props.team.full_name}</h1>

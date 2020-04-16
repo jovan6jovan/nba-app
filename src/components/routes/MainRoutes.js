@@ -6,7 +6,7 @@ import Players from "../players/Players";
 import Teams from "../teams/Teams";
 import Games from "../games/Games";
 
-const Routes = () => (
+const MainRoutes = () => (
   <Switch>
     <Route exact path="/" component={LandingPage} />
     <Route path="/players" component={Players} />
@@ -15,4 +15,4 @@ const Routes = () => (
   </Switch>
 );
 
-export default Routes;
+export default MainRoutes;
