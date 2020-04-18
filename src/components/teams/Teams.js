@@ -1,22 +1,30 @@
 import React, { useState, useEffect } from "react";
-import { Link, Switch, Route } from "react-router-dom";
+import { Link, Route } from "react-router-dom";
 import axios from "axios";
 
+import Spinner from "../layout/Spinner";
 import Team from "./Team";
 
 const Teams = () => {
   const [teams, setTeams] = useState([]);
   const [team, setTeam] = useState({});
+  const [loading, setLoading] = useState(false);
+
+  const getTeam = async (e) => {
+    if(e.target.id !== "") {
+      console.log(e.target);
+      const response = await axios.get(`https://www.balldontlie.io/api/v1/teams/${e.target.id}`);
+      setTeam(response.data);
+      console.log(team);
+    }
+  }
 
   useEffect(() => {
-    let isSubscribed = true;
+    setLoading(true);
     axios.get("https://www.balldontlie.io/api/v1/teams").then((teams) => {
-      if (isSubscribed) {
-        setTeams(teams.data.data);
-      }
+      setTeams(teams.data.data);
+      setLoading(false);
     });
-
-    return () => (isSubscribed = false);
   }, []);
 
   const filterTeamsByDivision = (divisionName) => {
@@ -30,12 +38,7 @@ const Teams = () => {
             to={`/team/${team.id}`}
             id={team.id}
             className="team-link"
-            onClick={async (e) => {
-              const response = await axios.get(
-                `https://www.balldontlie.io/api/v1/teams/${e.target.id}`
-              );
-              setTeam(response.data);
-            }}
+            onClick={getTeam}
           >
             {team.full_name}
           </Link>
@@ -50,7 +53,7 @@ const Teams = () => {
   const southwestDivisionTeams = filterTeamsByDivision("Southwest");
   const northwestDivisionTeams = filterTeamsByDivision("Northwest");
 
-  return (
+  return loading ? <Spinner /> : (
     <>
       <h1 className="teams-heading">NBA Teams</h1>
       <div className="divisions-container">
@@ -79,13 +82,8 @@ const Teams = () => {
           {northwestDivisionTeams}
         </div>
       </div>
-      <Switch>
-        <Route
-          exact
-          path="/team/:id"
-          render={(props) => <Team team={team} />}
-        />
-      </Switch>
+      
+      <Route exact path="/team/:id" component={() => <Team teams={teams} />} />
     </>
   );
 };

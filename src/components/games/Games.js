@@ -2,22 +2,19 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 import "./Games.css";
-// import Spinner from "../layout/Spinner";
+import Spinner from "../layout/Spinner";
 
 const Games = () => {
   const [games, setGames] = useState([]);
-  // const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    async function getTodaysGames() {
-      const today = new Date().toISOString().slice(0, 10);
-      const response = await axios.get(
-        `https://www.balldontlie.io/api/v1/games?start_date=${today}&end_date=${today}`
-      );
-      setGames(response.data.data);
-    }
-
-    getTodaysGames();
+    const today = new Date().toISOString().slice(0, 10);
+    setLoading(true);
+    axios.get(`https://www.balldontlie.io/api/v1/games?start_date=${today}&end_date=${today}`).then((game) => {
+      setGames(game.data.data);
+      setLoading(false);
+    })
   }, []);
 
   const gamesList = games.map((game) => {
@@ -38,7 +35,7 @@ const Games = () => {
     );
   });
 
-  return (
+  return loading ? <Spinner /> : (
     <div className="games-container">
       <h1
         style={{
