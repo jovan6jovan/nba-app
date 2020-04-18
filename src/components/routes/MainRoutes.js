@@ -11,8 +11,8 @@ const MainRoutes = () => (
   <Switch>
     <Route exact path="/" component={LandingPage} />
     <Route path="/players" component={Players} />
-    <Route path="/teams" component={Teams} />
-    <Route exact path="/team/:id" component={(props) => <Team {...props} />} />
+    <Route exact path="/teams" component={Teams} />
+    <Route exact path="/teams/:id" component={(props) => <Team {...props} />} />
     <Route path="/games" component={Games} />
   </Switch>
 );
