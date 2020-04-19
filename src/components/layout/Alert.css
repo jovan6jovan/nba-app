@@ -6,10 +6,12 @@
   justify-content: center;
   align-items: center;
   font-size: 1.4rem;
+  padding: 0.5rem;
 }
 
 @media only screen and (min-width: 769px) {
   .alert {
     background-color: #c9082a;
+    margin-bottom: 1rem;
   }
 }

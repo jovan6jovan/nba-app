@@ -4,6 +4,7 @@ import axios from "axios";
 
 import "./Players.css";
 import Spinner from "../layout/Spinner";
+import Alert from "../layout/Alert";
 
 const Players = () => {
   const [players, setPlayers] = useState([]);
@@ -69,7 +70,7 @@ const Players = () => {
 
   return loading ? <Spinner /> : (
     <div className="players-container">
-      { alert !== null && <div className="danger">{alert}</div> }
+      { alert !== null && <Alert alert={alert} /> }
       <div className="form-container">
         <h1 className="players-heading">Browse players</h1>
         <form onSubmit={onSubmitHandler} className="search-players-form">
