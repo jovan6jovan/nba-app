@@ -5,7 +5,7 @@ import axios from "axios";
 import "./Players.css";
 import Spinner from "../layout/Spinner";
 
-const Players = ({ getPlayerInfo }) => {
+const Players = () => {
   const [players, setPlayers] = useState([]);
   const [term, setTerm] = useState("");
   const [alert, setAlert] = useState(null);
@@ -55,9 +55,8 @@ const Players = ({ getPlayerInfo }) => {
     return (
       <div key={player.id} className="player-card">
         <Link
-          to={`/player/${player.id}`}
+          to={`/players/${player.id}`}
           id={player.id}
-          onClick={getPlayerInfo}
           className="player-name-link"
         >
           {player.first_name} {player.last_name}
