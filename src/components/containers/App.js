@@ -19,22 +19,6 @@ class App extends React.Component {
     byGameStats: []
   };
 
-  searchPlayers = async (term) => {
-    this.setState({ loading: true });
-
-    const response = await axios.get(
-      `https://www.balldontlie.io/api/v1/players?search=${term}`
-    );
-
-    if (response.data.data.length === 0) {
-      this.setAlert("There is no NBA player with that name", "danger");
-      this.setState({ loading: false });
-    } else {
-      this.setState({ players: response.data.data, loading: false });
-    }
-  };
-
-  clearPlayersResults = () => this.setState({ players: [], loading: false });
   clearGamesResults = () => this.setState({ games: [], loading: false });
 
   getPlayerInfo = async (e) => {
@@ -74,23 +58,6 @@ class App extends React.Component {
             }
           })
         );
-    }
-  };
-
-  setAlert = (msg) => {
-    this.setState({ alert: { msg: msg } });
-    setTimeout(() => this.setState({ alert: null }), 5000);
-  };
-
-  onChangeHandler = (e) => this.setState({ term: e.target.value });
-
-  onSubmitHandler = (e) => {
-    e.preventDefault();
-    if (this.state.term === "") {
-      this.setAlert("Please enter the player's name", "danger");
-    } else {
-      this.searchPlayers(this.state.term);
-      this.setState({ term: "" });
     }
   };
 

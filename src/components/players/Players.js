@@ -1,22 +1,55 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 import "./Players.css";
 import Spinner from "../layout/Spinner";
 
-const Players = ({
-  onChangeHandler,
-  onSubmitHandler,
-  clearPlayersResults,
-  term,
-  players,
-  getPlayerInfo,
-  loading,
-  showClearBtn,
-}) => {
-  if (loading) {
-    return <Spinner />;
-  }
+const Players = ({ getPlayerInfo }) => {
+  const [players, setPlayers] = useState([]);
+  const [term, setTerm] = useState("");
+  const [alert, setAlert] = useState(null);
+  const [loading, setLoading] = useState(false);
+
+  const onChangeHandler = (e) => setTerm(e.target.value);
+
+  const setAlertMsg = (msg) => {
+    setAlert(msg);
+    setTimeout(() => setAlert(null), 5000);
+  };
+
+  const searchPlayers = async (term) => {
+    setLoading(true);
+
+    const response = await axios.get(
+      `https://www.balldontlie.io/api/v1/players?search=${term}`
+    );
+
+    if (response.data.data.length === 0) {
+      setAlertMsg("There is no NBA player with that name");
+      setLoading(false);
+    } else {
+      setPlayers(response.data.data);
+      setLoading(false);
+    }
+  };
+
+  const onSubmitHandler = (e) => {
+    e.preventDefault();
+    if (term === "") {
+      setAlertMsg("Please enter the player's name", "danger");
+    } else {
+      searchPlayers(term);
+      setTerm("");
+    }
+  };
+
+  const clearPlayersResults = () => {
+    setPlayers([]);
+    setLoading(false);
+  };
+
+  const showClearBtn = players.length > 0 ? true : false;
 
   const playersList = players.map((player) => {
     return (
@@ -35,8 +68,9 @@ const Players = ({
     );
   });
 
-  return (
+  return loading ? <Spinner /> : (
     <div className="players-container">
+      { alert !== null && <div className="danger">{alert}</div> }
       <div className="form-container">
         <h1 className="players-heading">Browse players</h1>
         <form onSubmit={onSubmitHandler} className="search-players-form">
@@ -56,7 +90,9 @@ const Players = ({
           </button>
         )}
       </div>
-      <div className="player-results-container">{playersList}</div>
+      <div className="player-results-container">
+        {playersList}
+      </div>
     </div>
   );
 };

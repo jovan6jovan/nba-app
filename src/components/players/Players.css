@@ -102,4 +102,12 @@
     align-self: flex-start;
     margin-right: 0;
   }
+
+  .danger {
+    background-color: #c9082a;
+    color: #fff;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    text-align: center;
+  }
 }
