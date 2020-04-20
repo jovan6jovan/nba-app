@@ -18,7 +18,6 @@ const Team = (props) => {
 
   return loading ? <Spinner /> : (
     <>
-    {/* Hello from Team.js */}
     <div className="team-container">
       <h1 className="team-heading">{team.full_name}</h1>
       <p className="team-paragraph">

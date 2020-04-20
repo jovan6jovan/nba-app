@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
+import "../teams/Teams.css";
 import Spinner from "../layout/Spinner";
 
 const Teams = () => {
@@ -25,7 +26,6 @@ const Teams = () => {
         <h4 className="team-name-heading" key={team.id}>
           <Link
             to={`/teams/${team.id}`}
-            id={team.id}
             className="team-link"
           >
             {team.full_name}
